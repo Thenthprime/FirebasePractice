@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "917484612091",
+    "project_id": "fir-practice-ba1db",
+    "storage_bucket": "fir-practice-ba1db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917484612091:android:a93a44e2dd9fe4aa86835e",
+        "android_client_info": {
+          "package_name": "edu.psu.swen888.firebasepractice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaTKXt7B62-HK8zBUIt3TvhFhbLbvmyFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
