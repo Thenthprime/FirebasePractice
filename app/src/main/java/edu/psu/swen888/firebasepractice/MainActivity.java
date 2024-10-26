@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         });
         signUpButton.setOnClickListener(view -> {
 
-//            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            Intent intent = new Intent(MainActivity.this, BooksActivity.class);
-//                            intent.putExtra("email", email);
-//                            startActivity(intent);
-//                            finish();
+                            Intent intent = new Intent(MainActivity.this, AllTeams.class);
+                            intent.putExtra("email", email);
+                            startActivity(intent);
+                            finish();
                         } else {
-                            Toast.makeText(MainActivity.this, "Authentication Failed. Please create an Account", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Authentication Failed. Please check your password or create an account.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
