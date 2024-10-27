@@ -7,7 +7,10 @@
         android:id="@+id/textview_team_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title" />
+        android:text="Title"
+        android:textSize="20dp"
+        android:textAppearance = "@color/black"
+        android:textAlignment="center"/>
     <TextView
         android:id="@+id/textview_games_played"
         android:layout_width="wrap_content"

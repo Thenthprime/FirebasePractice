@@ -49,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.name.setText("Team: " + teamsList.get(position).getName());
+        holder.name.setText(teamsList.get(position).getName());
         holder.games_played.setText("Games Played: " + teamsList.get(position).getGames_played());
         holder.wins.setText("Wins: " + teamsList.get(position).getWins());
         holder.losses.setText("Losses: " + teamsList.get(position).getLosses());

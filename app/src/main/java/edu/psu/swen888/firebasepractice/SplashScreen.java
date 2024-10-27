@@ -1,7 +1,6 @@
 package edu.psu.swen888.firebasepractice;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -27,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 //go from splash screen to main activity
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreen.this, SignInScreen.class);
                 startActivity(intent);
                 finish();
             }

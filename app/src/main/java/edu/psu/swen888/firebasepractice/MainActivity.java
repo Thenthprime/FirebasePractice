@@ -1,67 +1,59 @@
 package edu.psu.swen888.firebasepractice;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.view.MenuItem;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
-    FirebaseAuth mFireBaseAuth;
-    Button signInButton;
-    Button signUpButton;
-    EditText email;
-    EditText password;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DrawerLayout drawerLayout;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        //get instance of firebase authorization
-        mFireBaseAuth = FirebaseAuth.getInstance();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
-        email = findViewById(R.id.editTextEmailAddress);
-        password = findViewById(R.id.editTextNumberPassword);
-        signInButton = findViewById(R.id.signInbutton);
-        signUpButton = findViewById(R.id.signUpbutton);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        //call signIn authorization method when signIn button is clicked
-        signInButton.setOnClickListener(view -> {
-            SignIn(email.getText().toString(), password.getText().toString());
-        });
 
-        //pass intent to move to registration page when signUp button is clicked
-        signUpButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
-            startActivity(intent);
-        });
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SoccerTeamsFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_soccer);
+        }
+
     }
 
-    //method to authorize user from firebase database
-    private void SignIn(String email, String password) {
-        mFireBaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Intent intent = new Intent(MainActivity.this, AllTeams.class);
-                            intent.putExtra("email", email);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else {
-                            //if username/pw not in db, encourage user to check credentials or create an account
-                            Toast.makeText(MainActivity.this, "Authentication Failed. Please check your password or create an account.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.nav_soccer:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SoccerTeamsFragment()).commit();
+                break;
+            case R.id.nav_standings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StandingsFragment()).commit();
+                break;
+            case R.id.nav_my_account:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MyAccountFragment()).commit();
+                break;
+        }
+        return true;
     }
 }
-

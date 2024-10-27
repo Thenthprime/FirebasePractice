@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "nav_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_soccer"
+            android:icon = "@drawable/nav_soccer"
+            android:title="All Teams"/>
+        <item
+            android:id="@+id/nav_standings"
+            android:icon = "@drawable/nav_standings"
+            android:title="Current Standings"/>
+        <item
+            android:id="@+id/nav_my_account"
+            android:icon = "@drawable/nav_my_account"
+            android:title="My Account"/>
+
+    </group>
+
+</menu>

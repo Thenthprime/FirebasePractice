@@ -11,8 +11,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAllTeams"
-        android:layout_width="304dp"
-        android:layout_height="445dp"
+        android:layout_width="355dp"
+        android:layout_height="609dp"
         app:layout_constraintBottom_toTopOf="@+id/go_to_add_team"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
