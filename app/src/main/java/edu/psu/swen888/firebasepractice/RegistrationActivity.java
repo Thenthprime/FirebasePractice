@@ -28,12 +28,15 @@ public class RegistrationActivity extends AppCompatActivity {
         registerMe = findViewById(R.id.createAccountbutton);
         mFireBaseAuth = FirebaseAuth.getInstance();
 
+        //when user selects the "create account" button the createUser method is called
         registerMe.setOnClickListener(view ->{
             createUser(email.getText().toString(), password.getText().toString());
         });
     }
 
+    //create user takes an email and password to make a new user
     private void createUser(String email, String password){
+        //firebase method to create a new user
         mFireBaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
@@ -43,9 +46,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     Intent intent = new Intent(RegistrationActivity.this, AllTeams.class);
                     startActivity(intent);
                 }
+                else{
+                    Toast.makeText(RegistrationActivity.this, "Error creating a user", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
     }
 }

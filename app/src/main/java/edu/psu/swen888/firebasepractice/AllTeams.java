@@ -1,7 +1,9 @@
 package edu.psu.swen888.firebasepractice;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ public class AllTeams extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_READ_CONTACTS = 100;
     DatabaseReference databaseReference;
     RecyclerViewAdapter adapter;
+    Button addATeam;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -32,19 +35,23 @@ public class AllTeams extends AppCompatActivity {
 
         mRecyclerView= findViewById(R.id.recyclerViewAllTeams);
         databaseReference = FirebaseDatabase.getInstance().getReference("teams");
+        addATeam = findViewById(R.id.go_to_add_team);
 
         //Check for permission to access contacts
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED){
             //Permission is not granted, request it
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
                     PERMISSION_REQUEST_READ_CONTACTS);
-            //get books objects from database and add them to the books array list
+
+
+            //get teams objects from database and add them to the teams array list
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             adapter = new RecyclerViewAdapter(teamsList);
             mRecyclerView.setAdapter(adapter);
 
-            databaseReference.addValueEventListener(new ValueEventListener(){
 
+
+            databaseReference.addValueEventListener(new ValueEventListener(){
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for(DataSnapshot dataSnapshot: snapshot.getChildren()){
@@ -62,8 +69,7 @@ public class AllTeams extends AppCompatActivity {
         }
         else{
             //Permission is already granted, proceed with app logic
-            //get books objects from database and add them to the books array list
-            //get books objects from database and add them to the books array list
+            //get team objects from database and add them to the teams array list
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             adapter = new RecyclerViewAdapter(teamsList);
             mRecyclerView.setAdapter(adapter);
@@ -85,5 +91,11 @@ public class AllTeams extends AppCompatActivity {
                 }
             });
         }
+
+        //include a way to get to the add team page
+        addATeam.setOnClickListener(view ->{
+            Intent intent = new Intent(AllTeams.this, AddTeam.class);
+            startActivity(intent);
+        });
     }
 }

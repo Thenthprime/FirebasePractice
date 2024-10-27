@@ -23,7 +23,7 @@ public class Team implements Serializable {
         this.total_points = total_points;
     }
 
-    //Firebase needs a no argument constructor
+    //Firebase requires a no argument constructor
     public Team(){
 
     }

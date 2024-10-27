@@ -52,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.name.setText("Team: " + teamsList.get(position).getName());
         holder.games_played.setText("Games Played: " + teamsList.get(position).getGames_played());
         holder.wins.setText("Wins: " + teamsList.get(position).getWins());
-        holder.losses.setText("Losses" + teamsList.get(position).getLosses());
+        holder.losses.setText("Losses: " + teamsList.get(position).getLosses());
         holder.ties.setText("Ties: " + teamsList.get(position).getTies());
         holder.goals_for.setText("Goals For: " + teamsList.get(position).getGoals_for());
         holder.goals_against.setText("Goals Against: " + teamsList.get(position).getGoals_against());

@@ -1,25 +1,17 @@
 package edu.psu.swen888.firebasepractice;
 
-
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth mFireBaseAuth;
@@ -31,21 +23,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        //get instance of firebase authorization
         mFireBaseAuth = FirebaseAuth.getInstance();
+
         email = findViewById(R.id.editTextEmailAddress);
         password = findViewById(R.id.editTextNumberPassword);
         signInButton = findViewById(R.id.signInbutton);
         signUpButton = findViewById(R.id.signUpbutton);
+
+        //call signIn authorization method when signIn button is clicked
         signInButton.setOnClickListener(view -> {
             SignIn(email.getText().toString(), password.getText().toString());
         });
-        signUpButton.setOnClickListener(view -> {
 
+        //pass intent to move to registration page when signUp button is clicked
+        signUpButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
             startActivity(intent);
         });
     }
 
+    //method to authorize user from firebase database
     private void SignIn(String email, String password) {
         mFireBaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -56,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("email", email);
                             startActivity(intent);
                             finish();
-                        } else {
+                        }
+                        else {
+                            //if username/pw not in db, encourage user to check credentials or create an account
                             Toast.makeText(MainActivity.this, "Authentication Failed. Please check your password or create an account.", Toast.LENGTH_SHORT).show();
                         }
                     }
