@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddATeamFragment">
+
+    <EditText
+        android:id="@+id/edit_text_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType = "text"
+        android:hint="Team Name"/>
+
+    <EditText
+        android:id="@+id/edit_text_games_played"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint = "Number of Games Played"/>
+
+    <EditText
+        android:id="@+id/edit_text_wins"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint = "Number of wins"/>
+
+    <EditText
+        android:id="@+id/edit_text_losses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint = "Number of Losses"/>
+
+    <EditText
+        android:id="@+id/edit_text_number_ties"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint = "Number of Ties"/>
+
+    <EditText
+        android:id="@+id/edit_text_goals_for"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint = "Goals For"/>
+
+    <EditText
+        android:id="@+id/edit_text_goals_against"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint = "Goals Against"/>
+
+    <EditText
+        android:id="@+id/edit_text_total_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint = "Total Points"/>
+
+    <Button
+        android:id="@+id/SubmitNewTeambutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Team" />
+
+</LinearLayout>

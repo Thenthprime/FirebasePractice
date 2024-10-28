@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class AllTeams extends AppCompatActivity {
     RecyclerView mRecyclerView;
     ArrayList<Team> teamsList = new ArrayList<>();
-    private static final int PERMISSION_REQUEST_READ_CONTACTS = 100;
     DatabaseReference databaseReference;
     RecyclerViewAdapter adapter;
     Button addATeam;
@@ -37,60 +36,27 @@ public class AllTeams extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("teams");
         addATeam = findViewById(R.id.go_to_add_team);
 
-        //Check for permission to access contacts
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED){
-            //Permission is not granted, request it
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
-                    PERMISSION_REQUEST_READ_CONTACTS);
+        //get teams objects from database and add them to the teams array list
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new RecyclerViewAdapter(teamsList);
+        mRecyclerView.setAdapter(adapter);
 
 
-            //get teams objects from database and add them to the teams array list
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new RecyclerViewAdapter(teamsList);
-            mRecyclerView.setAdapter(adapter);
-
-
-
-            databaseReference.addValueEventListener(new ValueEventListener(){
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                        Team team = dataSnapshot.getValue(Team.class);
-                        teamsList.add(team);
-                    }
-                    adapter.notifyDataSetChanged();
+        databaseReference.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Team team = dataSnapshot.getValue(Team.class);
+                    teamsList.add(team);
                 }
+                adapter.notifyDataSetChanged();
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        }
-        else{
-            //Permission is already granted, proceed with app logic
-            //get team objects from database and add them to the teams array list
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new RecyclerViewAdapter(teamsList);
-            mRecyclerView.setAdapter(adapter);
-
-            databaseReference.addValueEventListener(new ValueEventListener(){
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                        Team team = dataSnapshot.getValue(Team.class);
-                        teamsList.add(team);
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
+            }
+        });
 
         //include a way to get to the add team page
         addATeam.setOnClickListener(view ->{
