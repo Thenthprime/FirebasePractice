@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SoccerTeamsFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AllTeamsFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_soccer);
         }
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.nav_soccer:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SoccerTeamsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AllTeamsFragment()).commit();
                 break;
             case R.id.nav_standings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddATeamFragment()).commit();

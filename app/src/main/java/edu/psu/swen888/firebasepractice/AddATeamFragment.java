@@ -24,6 +24,7 @@ public class AddATeamFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_a_team, container, false);
 
+        //add button functionality
         AddTeam = view.findViewById(R.id.SubmitNewTeambutton);
         AddTeam.setOnClickListener(thisView -> {
             et_name = view.findViewById(R.id.edit_text_name);
@@ -57,5 +58,4 @@ public class AddATeamFragment extends Fragment{
         });
         return view;
     }
-
 }

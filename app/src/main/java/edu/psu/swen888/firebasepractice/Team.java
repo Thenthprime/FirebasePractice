@@ -28,6 +28,8 @@ public class Team implements Serializable {
 
     }
 
+    //class getters and setters
+
     public String getName() {
         return name;
     }

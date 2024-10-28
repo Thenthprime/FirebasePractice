@@ -35,14 +35,5 @@
             android:name=".MainActivity"
             android:exported="false">
         </activity>
-        <activity
-            android:name=".AllTeams"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".AddTeam"
-            android:exported="false">
-        </activity>
-    </application>
-
+     </application>
 </manifest>
