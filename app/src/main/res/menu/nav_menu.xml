@@ -17,8 +17,8 @@
             android:title="Add a Team"/>
         <item
             android:id="@+id/nav_my_account"
-            android:icon = "@drawable/nav_my_account"
-            android:title="My Account"/>
+            android:icon = "@drawable/current_rankings"
+            android:title="Current Rankings"/>
 
     </group>
 

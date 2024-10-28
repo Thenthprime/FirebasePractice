@@ -45,20 +45,21 @@ public class SignInScreen extends AppCompatActivity {
     }
 
     //method to authorize user from firebase database
-    private void SignIn(String email, String password) {
+
+    private void SignIn(String email, String password){
         mFireBaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(SignInScreen.this, MainActivity.class);
+                            Intent intent = new Intent(SignInScreen.this,
+                            MainActivity.class);
                             intent.putExtra("email", email);
                             startActivity(intent);
                             finish();
-                        }
-                        else {
-                            //if username/pw not in db, encourage user to check credentials or create an account
-                            Toast.makeText(SignInScreen.this, "Authentication Failed. Please check your password or create an account.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(SignInScreen.this, "Authentication failed",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

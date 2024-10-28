@@ -20,27 +20,25 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class AllTeamsFragment extends Fragment {
+public class TopTeamsFragment extends Fragment {
 
     RecyclerView mRecyclerView;
     ArrayList<Team> teamsList = new ArrayList<>();
     DatabaseReference databaseReference;
-    RecyclerViewAdapter adapter;
+    TopTeamsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_teams, container, false);
+        View view = inflater.inflate(R.layout.fragment_top_teams, container, false);
 
         //initialize variables
-        mRecyclerView = view.findViewById(R.id.recyclerViewAllTeams);
+        mRecyclerView = view.findViewById(R.id.recyclerViewTopTeams);
+        //get teams objects from database and add them to the teams array list
         databaseReference = FirebaseDatabase.getInstance().getReference("teams");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //get teams objects from database and add them to the teams array list
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new RecyclerViewAdapter(teamsList);
+        adapter = new TopTeamsAdapter(teamsList);
         mRecyclerView.setAdapter(adapter);
 
         databaseReference.addValueEventListener(new ValueEventListener(){
@@ -50,6 +48,7 @@ public class AllTeamsFragment extends Fragment {
                     Team team = dataSnapshot.getValue(Team.class);
                     teamsList.add(team);
                 }
+                teamsList.sort(Comparator.comparingInt(Team::getTotal_points).reversed());
                 adapter.notifyDataSetChanged();
             }
 
@@ -58,10 +57,6 @@ public class AllTeamsFragment extends Fragment {
 
             }
         });
-
-        teamsList.sort(Comparator.comparingInt(Team::getTotal_points));
-
         return view;
     }
 }
-

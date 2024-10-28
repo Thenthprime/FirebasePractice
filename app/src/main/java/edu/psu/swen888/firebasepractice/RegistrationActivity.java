@@ -44,7 +44,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(RegistrationActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                    intent.putExtra("email", email);
                     startActivity(intent);
+                    finish();
                 }
                 else{
                     Toast.makeText(RegistrationActivity.this, "Error creating a user", Toast.LENGTH_SHORT).show();

@@ -1,7 +1,9 @@
 package edu.psu.swen888.firebasepractice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    TextView txtUserName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,14 +26,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            String userName = intent.getStringExtra("email");
+            navigationView.getMenu().add("Welcome " + userName);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AllTeamsFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_soccer);
         }
@@ -49,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddATeamFragment()).commit();
                 break;
             case R.id.nav_my_account:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MyAccountFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TopTeamsFragment()).commit();
                 break;
         }
         return true;
