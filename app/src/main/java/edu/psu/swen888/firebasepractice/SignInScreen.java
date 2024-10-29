@@ -52,14 +52,14 @@ public class SignInScreen extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(SignInScreen.this,
-                            MainActivity.class);
+                            //bring user to the main activity
+                            Intent intent = new Intent(SignInScreen.this, MainActivity.class);
                             intent.putExtra("email", email);
                             startActivity(intent);
                             finish();
-                        } else {
-                            Toast.makeText(SignInScreen.this, "Authentication failed",
-                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(SignInScreen.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

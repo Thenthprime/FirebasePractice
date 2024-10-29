@@ -35,14 +35,15 @@ public class AllTeamsFragment extends Fragment {
 
         //initialize variables
         mRecyclerView = view.findViewById(R.id.recyclerViewAllTeams);
+        //make reference to database to retreive data from teams path
         databaseReference = FirebaseDatabase.getInstance().getReference("teams");
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //get teams objects from database and add them to the teams array list
+        //send the teams array through the adapter
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(teamsList);
         mRecyclerView.setAdapter(adapter);
 
+        //this listener is to add values to the teams arraylist
         databaseReference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -58,9 +59,6 @@ public class AllTeamsFragment extends Fragment {
 
             }
         });
-
-        teamsList.sort(Comparator.comparingInt(Team::getTotal_points));
-
         return view;
     }
 }
