@@ -4,12 +4,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,10 +47,10 @@ public class AllTeamsFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
 
         //this listener is to add values to the teams arraylist
-        databaseReference.addValueEventListener(new ValueEventListener(){
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Team team = dataSnapshot.getValue(Team.class);
                     teamsList.add(team);
                 }
@@ -59,7 +62,32 @@ public class AllTeamsFragment extends Fragment {
 
             }
         });
+
+        //implement swipe left/right
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callBackMethod);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
         return view;
     }
-}
 
+    ItemTouchHelper.SimpleCallback callBackMethod = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+            switch (direction) {
+                case ItemTouchHelper.LEFT:
+                    //do left action (remove from teams list)
+                    Team swipedTeam = teamsList.get(position);
+                    teamsList.remove(swipedTeam);
+                    mRecyclerView.getAdapter().notifyItemChanged(position);
+                    Toast toastLeft = Toast.makeText(mRecyclerView.getContext(), "Team removed from database!", Toast.LENGTH_SHORT);
+                    toastLeft.show();
+                    break;
+            }
+        }
+    };
+}
