@@ -41,6 +41,7 @@ public class TopTeamsFragment extends Fragment {
         adapter = new TopTeamsAdapter(teamsList);
         mRecyclerView.setAdapter(adapter);
 
+        //add teams to the list from Firebase
         databaseReference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

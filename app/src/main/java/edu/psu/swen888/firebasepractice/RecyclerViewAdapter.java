@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
+
+    //this adapater will inflate the "All Teams" fragment
+
     private ArrayList<Team> teamsList;
     private ArrayList<String> keys;
 

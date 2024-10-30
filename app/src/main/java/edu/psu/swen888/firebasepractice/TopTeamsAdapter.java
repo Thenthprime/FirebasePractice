@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class TopTeamsAdapter extends RecyclerView.Adapter<TopTeamsAdapter.MyViewHolder>{
+
+    //this adapter is used to query the list of teams arranged by total points
+
     private ArrayList<Team> teamsList;
 
     public TopTeamsAdapter(ArrayList<Team> teamsList) {
@@ -20,7 +23,6 @@ public class TopTeamsAdapter extends RecyclerView.Adapter<TopTeamsAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView name;
         private TextView total_points;
-        private TextView rank;
 
         public MyViewHolder(final View view){
             super(view);
@@ -49,6 +51,5 @@ public class TopTeamsAdapter extends RecyclerView.Adapter<TopTeamsAdapter.MyView
             return teamsList.size();
         }
         return 0;
-
     }
 }

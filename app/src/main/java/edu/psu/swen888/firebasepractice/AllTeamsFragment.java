@@ -63,7 +63,7 @@ public class AllTeamsFragment extends Fragment {
                 }
                 adapter.notifyDataSetChanged();
             }
-
+            //required function for method
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -75,6 +75,8 @@ public class AllTeamsFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
         return view;
     }
+
+    //swiping callback method
 
     ItemTouchHelper.SimpleCallback callBackMethod = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
@@ -91,6 +93,7 @@ public class AllTeamsFragment extends Fragment {
                     Team swipedTeam = teamsList.get(position);
                     teamsList.remove(swipedTeam);
                     mRecyclerView.getAdapter().notifyItemChanged(position);
+                    //array of IDs on Firebase
                     String key = keys.get(position);
                     databaseReference.child(key).removeValue();
                     Toast toastLeft = Toast.makeText(mRecyclerView.getContext(), "Team removed from database!", Toast.LENGTH_SHORT);
