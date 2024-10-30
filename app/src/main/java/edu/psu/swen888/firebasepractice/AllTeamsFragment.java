@@ -1,5 +1,7 @@
 package edu.psu.swen888.firebasepractice;
 
+import static kotlin.jvm.internal.Reflection.function;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,9 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Path;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class AllTeamsFragment extends Fragment {
 
@@ -29,6 +33,7 @@ public class AllTeamsFragment extends Fragment {
     ArrayList<Team> teamsList = new ArrayList<>();
     DatabaseReference databaseReference;
     RecyclerViewAdapter adapter;
+    ArrayList<String> keys = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,8 +48,9 @@ public class AllTeamsFragment extends Fragment {
 
         //send the teams array through the adapter
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new RecyclerViewAdapter(teamsList);
+        adapter = new RecyclerViewAdapter(teamsList, keys);
         mRecyclerView.setAdapter(adapter);
+
 
         //this listener is to add values to the teams arraylist
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -53,6 +59,7 @@ public class AllTeamsFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Team team = dataSnapshot.getValue(Team.class);
                     teamsList.add(team);
+                    keys.add(dataSnapshot.getKey());
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -69,7 +76,7 @@ public class AllTeamsFragment extends Fragment {
         return view;
     }
 
-    ItemTouchHelper.SimpleCallback callBackMethod = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+    ItemTouchHelper.SimpleCallback callBackMethod = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -84,6 +91,8 @@ public class AllTeamsFragment extends Fragment {
                     Team swipedTeam = teamsList.get(position);
                     teamsList.remove(swipedTeam);
                     mRecyclerView.getAdapter().notifyItemChanged(position);
+                    String key = keys.get(position);
+                    databaseReference.child(key).removeValue();
                     Toast toastLeft = Toast.makeText(mRecyclerView.getContext(), "Team removed from database!", Toast.LENGTH_SHORT);
                     toastLeft.show();
                     break;

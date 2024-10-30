@@ -12,9 +12,11 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
     private ArrayList<Team> teamsList;
+    private ArrayList<String> keys;
 
-    public RecyclerViewAdapter(ArrayList<Team> teamsList) {
+    public RecyclerViewAdapter(ArrayList<Team> teamsList, ArrayList<String> keys) {
         this.teamsList = teamsList;
+        this.keys = keys;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
