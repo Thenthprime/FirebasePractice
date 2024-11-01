@@ -22,10 +22,21 @@
             android:id="@+id/toolbar"
             android:elevation="46dp"/>
 
+        <TextView
+            android:id="@+id/current_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="right"
+            android:text="TextView" />
+
         <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:id="@+id/fragment_container"/>
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -35,6 +46,8 @@
         android:id="@+id/nav_view"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"/>
+        app:menu="@menu/nav_menu">
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

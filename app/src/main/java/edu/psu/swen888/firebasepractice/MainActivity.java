@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //attach views to variables
         setContentView(R.layout.main_activity);
+        TextView current_user = findViewById(R.id.current_user);
         Toolbar toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         if (savedInstanceState == null) {
             Intent intent = getIntent();
-            String userName = intent.getStringExtra("email");
-            navigationView.getMenu().add("Welcome " + userName);
+            String userWelcome = "Welcome: " + intent.getStringExtra("email");
+            current_user.setText(userWelcome);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AllTeamsFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_soccer);
         }
